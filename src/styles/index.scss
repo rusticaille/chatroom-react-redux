@@ -1,0 +1,14 @@
+@use 'reset';
+@use 'vars';
+
+body {
+  font-family: sans-serif;
+  background-color: vars.$primary;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+

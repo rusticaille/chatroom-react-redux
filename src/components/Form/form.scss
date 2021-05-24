@@ -1,0 +1,38 @@
+@use 'src/styles/vars';
+
+.form {
+  width: 100%;
+  // le formulaire prend 10% du parent
+  // qui est app
+  // qui lui est de 100vh (toute la hauteur de la page)
+  // donc le formulaire prend 10% de la hauteur de la page
+  height: 10%;
+
+  &__input {
+    display: inline-block;
+    width: 90%;
+    // l'input prend toute la hauteur de son parent : le form
+    height: 100%;
+    border: none;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    vertical-align: middle;
+  }
+
+  &__submit {
+    border: none;
+    display: inline-block;
+    width: 10%;
+    // le bouton prend toute la hauteur de son parent : le form
+    height: 100%;
+    color: vars.$primary;
+    background-color: white;
+    vertical-align: middle;
+    transition: color 0.3s;
+    border: 2px solid white;
+
+    &:hover {
+      color: vars.$secondary;
+    }
+  }
+}
