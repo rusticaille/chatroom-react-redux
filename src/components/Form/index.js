@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Send } from 'react-feather';
 import './form.scss';
 
-const Form = ({handleInputChange, handleInputSubmit, value}) => {
+const Form = ({handleInputChange, handleInputSubmit, value, isLogged}) => {
 
   const inputRef = useRef(null);
 
@@ -24,6 +24,8 @@ const Form = ({handleInputChange, handleInputSubmit, value}) => {
         value={value}
         ref={inputRef}
         required
+        disabled={!isLogged}
+        pattern="^(?!\s*$).+"
       ></input>
       <button 
         type="submit"

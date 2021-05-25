@@ -10,7 +10,8 @@ const Settings = ({
   handlePasswordChange,
   handleFormSubmit,
   emailValue,
-  passwordValue
+  passwordValue,
+  isLogged,
   }) => {
 
   return (
@@ -22,35 +23,42 @@ const Settings = ({
       >
       <X size={20}/>
       </button>
-      <form 
-        className={ isClosed ? "connexion-form__inputs-group hidden" : "connexion-form__inputs-group"}
-        onSubmit={handleFormSubmit}  
-      >
-        <input 
-          type="text"
-          placeholder="Email"
-          className="connexion-form__inputs"
-          value={emailValue}
-          onChange={handleEmailChange}
-          required
-        ></input>
-        <input 
-          type="text"
-          placeholder="Mot de passe"
-          className="connexion-form__inputs"
-          value={passwordValue}
-          onChange={handlePasswordChange}
-          required
-        ></input>
-        <button 
-          className="connexion-form__inputs connexion-form__button"
+      {
+      isLogged ? (
+        <div className="settings__info">
+          Vous êtes connecté
+        </div>
+      ) : (
+        <form 
+          className={ isClosed ? "connexion-form__inputs-group hidden" : "connexion-form__inputs-group"}
+          onSubmit={handleFormSubmit}  
         >
-        Envoyer
-        </button>
-      </form>
-    </div>
-  )
-
+          <input 
+            type="email"
+            placeholder="Email"
+            className="connexion-form__inputs"
+            value={emailValue}
+            onChange={handleEmailChange}
+            required
+          ></input>
+          <input 
+            type="password"
+            placeholder="Mot de passe"
+            className="connexion-form__inputs"
+            value={passwordValue}
+            onChange={handlePasswordChange}
+            required
+          ></input>
+          <button 
+            className="connexion-form__inputs connexion-form__button"
+          >
+          Envoyer
+          </button>
+        </form>
+      )
+    }
+  </div>
+  )      
 };
 
 Settings.propTypes = {

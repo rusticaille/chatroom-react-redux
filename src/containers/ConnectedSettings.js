@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 
 import Settings from 'src/components/Settings';
+import isUserLogged from 'src/selectors/isUserLogged';
 
-import {hideLoginFromForm, changeEmailValue, changePasswordValue, submitLoginForm} from 'src/store/actions';
+import {hideLoginFromForm, changeLoginValues, submitLoginForm} from 'src/store/actions';
 
 const mapStateToProps = (state) => ({
   isClosed: state.loginClosed,
-  emailValue: state.emailValue,
-  passwordValue: state.passwordValue,
+  emailValue: state.loginForm.email,
+  passwordValue: state.loginForm.password,
+  isLogged: isUserLogged(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,18 +19,16 @@ const mapDispatchToProps = (dispatch) => ({
 
   handleEmailChange: (event) => {
     console.log(event.target.value);
-    dispatch(changeEmailValue(event.target.value));
+    dispatch(changeLoginValues('email', event.target.value));
   },
 
   handlePasswordChange: (event) => {
     console.log(event.target.value);
-    dispatch(changePasswordValue(event.target.value));
+    dispatch(changeLoginValues('password', event.target.value));
   },
 
   handleFormSubmit: (event) => {
     event.preventDefault();
-    console.log(event);
-    console.log(event.target)
     dispatch(submitLoginForm())
   }
 });

@@ -2,9 +2,9 @@ import {
   CHANGE_VALUE,
   SUBMIT_VALUE,
   HIDE_FORM,
-  CHANGE_EMAIL_VALUE,
-  CHANGE_PASSWORD_VALUE,
-  SUBMIT_LOGIN_FORM,
+  CHANGE_LOGIN_VALUES,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
 } from './actions'
 
 
@@ -28,16 +28,13 @@ const initialState = {
     },
   ],
   value: '',
-  nickname: 'SuperChat',
+  nickname: null,
   loginClosed: false,
-  emailValue: '',
-  passwordValue: '',
-  loginForm: [ 
-    {
+  loginForm: {
     email: '',
     password: '',
-    }
-  ]
+    hasError: false,
+  },
 }
 
 function reducer(state=initialState, action) {
@@ -64,28 +61,33 @@ function reducer(state=initialState, action) {
         ...state,
         loginClosed: !state.loginClosed,
       }
-    case CHANGE_EMAIL_VALUE:
+    case CHANGE_LOGIN_VALUES:
       return {
         ...state,
-        emailValue: action.value,
-      }
-    case CHANGE_PASSWORD_VALUE:
-      return {
-        ...state,
-        passwordValue: action.value,
-      }
-    case SUBMIT_LOGIN_FORM:
-      return {
-        ...state,
-        loginForm: [
+        loginForm: {
           ...state.loginForm,
-          {
-            email: state.emailValue,
-            password: state.passwordValue,
-          }
-        ],
-        emailValue: '',
-        passwordValue: '',
+          [action.keysToChange]: action.value,
+        }
+      }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        nickname: action.nickname,
+        loginClosed: !state.loginClosed,
+        loginForm: {
+          ...state.loginForm,
+          email: '',
+          password: '',
+          hasError: false,
+        },
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loginForm:{
+          ...state.loginForm,
+          hasError: true,
+        }
       }
     default:
       return state;
